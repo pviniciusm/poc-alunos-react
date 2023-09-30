@@ -3,6 +3,9 @@ import DefaultLayout from '../config/layout/DefaultLayout';
 import { styled } from 'styled-components';
 import { FormStyled } from '../components/FormStyled';
 import { FormInputGroup } from '../components/FormInputGroup';
+import { login } from '../config/services/auth.service';
+import { LoginResponse } from '../models/login.model';
+import { useNavigate } from 'react-router-dom';
 
 const LoginWrapper = styled.div`
     display: flex;
@@ -11,6 +14,8 @@ const LoginWrapper = styled.div`
 `;
 
 const Contact: React.FC = () => {
+    const navigate = useNavigate();
+
     const handleSubmit = (event: any) => {
         event.preventDefault();
 
@@ -19,7 +24,21 @@ const Contact: React.FC = () => {
             password: event.target.password.value
         };
 
-        console.log(aluno);
+        login(aluno).then(result => {
+            if (!result.ok) {
+                alert(result.message);
+                return;
+            }
+
+            const data = result.data as LoginResponse;
+
+            localStorage.setItem('auth-token', data.authToken);
+            localStorage.setItem('user-id', data.id);
+
+            console.log('Login successfully done');
+
+            navigate('/projects');
+        });
     };
 
     return (
