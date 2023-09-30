@@ -1,15 +1,19 @@
-import { Project } from '../../models/project.model';
-import apiService from './api.service';
+import apiService, { Response } from './api.service';
 
-export async function listProjects(userId: string) {
+export async function listProjects(userId: string): Promise<Response> {
     try {
         const result = await apiService.get(`/aluno/${userId}/projeto`);
 
-        return result.data as Project[];
+        return {
+            ok: true,
+            data: result.data.data
+        };
     } catch (error: any) {
-        console.log(error.toString());
-        console.log(error.response?.data);
+        console.log(error);
 
-        return null;
+        return {
+            ok: false,
+            message: error.response?.data?.message
+        };
     }
 }

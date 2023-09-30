@@ -4,17 +4,19 @@ import NavBarStyled from './NavBarStyled';
 import { Link } from 'react-router-dom';
 
 interface NavbarProps {
-  navigation: NavigationType[];
+    navigation: NavigationType[];
 }
 
 const Navbar: React.FC<NavbarProps> = ({ navigation }) => {
-  return (
-    <NavBarStyled>
-      {navigation.map(item => (
-        <Link to={item.url}>{item.label}</Link>
-      ))}
-    </NavBarStyled>
-  );
+    return (
+        <NavBarStyled>
+            {navigation.map((item, idx) => (
+                <Link key={idx} to={item.url}>
+                    {item.label}
+                </Link>
+            ))}
+        </NavBarStyled>
+    );
 };
 
 export default Navbar;
