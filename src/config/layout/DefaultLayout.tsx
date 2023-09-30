@@ -18,6 +18,7 @@ const DefaultLayoutWrapper = styled.div`
 
 const MainContentWrapper = styled.main`
   flex: 1;
+  padding: 12px;
 `;
 
 const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {

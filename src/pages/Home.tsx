@@ -4,7 +4,7 @@ import DefaultLayout from '../config/layout/DefaultLayout';
 const Home: React.FC = () => {
   return (
     <DefaultLayout>
-      <h1>Home</h1>
+      <h1>Bem vindo!</h1>
     </DefaultLayout>
   );
 };
