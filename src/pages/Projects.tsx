@@ -3,12 +3,19 @@ import DefaultLayout from '../config/layout/DefaultLayout';
 import { ProjectsList } from '../components/ProjectsList';
 import { Project } from '../models/project.model';
 import { listProjects } from '../config/services/project.service';
+import { useNavigate } from 'react-router-dom';
 
 const Projects: React.FC = () => {
+    const navigate = useNavigate();
     const [projects, setProjects] = useState<Project[]>([]);
 
     useEffect(() => {
-        const userId = 'df2b30c4-bac9-48ff-8dd6-a37740e2ded5';
+        const userId = localStorage.getItem('user-id');
+
+        if (!userId) {
+            navigate('/login');
+            return;
+        }
 
         listProjects(userId).then(result => {
             if (!result.ok) {
