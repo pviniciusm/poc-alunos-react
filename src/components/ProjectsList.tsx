@@ -1,31 +1,24 @@
+import React, { useState } from 'react';
 import { ProjectCard } from './ProjectCard';
 import styled from 'styled-components';
+import { Project } from '../models/project.model';
+
+interface ProjectsListProps {
+    projects: Project[];
+}
 
 const ProjectsListStyled = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 `;
 
-export const ProjectsList = () => {
-  const projects: any[] = [
-    {
-      id: 1,
-      descricao: 'Teste projeto',
-      ferramenta: 'React'
-    },
-    {
-      id: 2,
-      descricao: 'Teste projeto 2',
-      ferramenta: 'Node.js'
-    }
-  ];
-
-  return (
-    <ProjectsListStyled>
-      {projects.map(project => (
-        <ProjectCard key={project.id} project={project}></ProjectCard>
-      ))}
-    </ProjectsListStyled>
-  );
+export const ProjectsList: React.FC<ProjectsListProps> = ({ projects }) => {
+    return (
+        <ProjectsListStyled>
+            {projects.map(project => (
+                <ProjectCard key={project.id} project={project}></ProjectCard>
+            ))}
+        </ProjectsListStyled>
+    );
 };
