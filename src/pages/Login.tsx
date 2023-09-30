@@ -32,7 +32,7 @@ const Contact: React.FC = () => {
 
             const data = result.data as LoginResponse;
 
-            localStorage.setItem('auth-token', data.authToken);
+            localStorage.setItem('auth-token', data.token);
             localStorage.setItem('user-id', data.id);
 
             console.log('Login successfully done');

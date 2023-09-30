@@ -5,5 +5,5 @@ export interface LoginRequest {
 
 export interface LoginResponse {
     id: string;
-    authToken: string;
+    token: string;
 }
