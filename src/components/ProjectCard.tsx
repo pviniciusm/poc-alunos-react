@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { Project } from '../models/project.model';
+import { deleteProject } from '../config/services/project.service';
 
 interface ProjectProps {
     project: Project;
@@ -44,7 +45,7 @@ const ProjectCardStyled = styled.div`
 `;
 
 export const ProjectCard: React.FC<ProjectProps> = ({ project, projects, setProjects }) => {
-    const deleteProject = () => {
+    const handleDelete = () => {
         const projectsCopy = [...projects];
 
         const idxProject = projectsCopy.findIndex(item => item.id === project.id);
@@ -53,9 +54,17 @@ export const ProjectCard: React.FC<ProjectProps> = ({ project, projects, setProj
             return;
         }
 
-        projectsCopy.splice(idxProject, 1);
+        const userId = localStorage.getItem('user-id');
 
-        setProjects(projectsCopy);
+        deleteProject(userId!, project.id).then(result => {
+            if (!result.ok) {
+                alert(result.message);
+                return;
+            }
+
+            projectsCopy.splice(idxProject, 1);
+            setProjects(projectsCopy);
+        });
     };
 
     return (
@@ -63,7 +72,7 @@ export const ProjectCard: React.FC<ProjectProps> = ({ project, projects, setProj
             <h2>{project.descricao}</h2>
             <p>{project.ferramenta}</p>
             <div className="project-action">
-                <button className="btn-deletar" onClick={deleteProject}>
+                <button className="btn-deletar" onClick={handleDelete}>
                     Deletar
                 </button>
                 <button className="btn-editar">Editar</button>
