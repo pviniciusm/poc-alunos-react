@@ -30,7 +30,7 @@ const Projects: React.FC = () => {
     return (
         <DefaultLayout>
             <h1>Sua lista de projetos</h1>
-            <ProjectsList projects={projects} />
+            <ProjectsList projects={projects} setProjects={setProjects} />
         </DefaultLayout>
     );
 };
