@@ -6,7 +6,8 @@ export const FormInputGroup = styled.div`
         font-weight: bold;
     }
 
-    input {
+    input,
+    select {
         border: 1px solid #ddd;
         padding: 8px 12px;
         border-radius: 4px;

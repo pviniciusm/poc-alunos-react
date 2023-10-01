@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import { Project } from '../models/project.model';
 import { deleteProject } from '../config/services/project.service';
+import { useNavigate } from 'react-router-dom';
 
 interface ProjectProps {
     project: Project;
@@ -45,6 +46,8 @@ const ProjectCardStyled = styled.div`
 `;
 
 export const ProjectCard: React.FC<ProjectProps> = ({ project, projects, setProjects }) => {
+    const navigate = useNavigate();
+
     const handleDelete = () => {
         const projectsCopy = [...projects];
 
@@ -67,6 +70,12 @@ export const ProjectCard: React.FC<ProjectProps> = ({ project, projects, setProj
         });
     };
 
+    const handleUpdate = () => {
+        localStorage.setItem('project', JSON.stringify(project));
+
+        navigate('/projects/add');
+    };
+
     return (
         <ProjectCardStyled>
             <h2>{project.descricao}</h2>
@@ -75,7 +84,9 @@ export const ProjectCard: React.FC<ProjectProps> = ({ project, projects, setProj
                 <button className="btn-deletar" onClick={handleDelete}>
                     Deletar
                 </button>
-                <button className="btn-editar">Editar</button>
+                <button className="btn-editar" onClick={handleUpdate}>
+                    Editar
+                </button>
             </div>
         </ProjectCardStyled>
     );
